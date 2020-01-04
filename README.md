@@ -9,7 +9,7 @@ Here is the link to the API documentation. The main idea right now is to use the
 ## Table of Goals
 To-Do | Description
 ----- | -----------
-Certificate | Get Certificate to work with API
+Certificate | Get Certificate to work with API (4-5 days wait)
 Requests | Experiment with the requests and learn how to use them
 Table | Take data and put it into a useable CSV file
 Update Table | Combine a new and old CSV to create an updated CSV
