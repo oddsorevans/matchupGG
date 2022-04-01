@@ -71,8 +71,27 @@ def getEventsInTourney(slug:str):
     result = json.loads(client.execute(query))
     return result
 
-def testing():
-    result = getEventsInTourney("pr-wars-rebellion-500-pot-bonus-presented-by-texoma-esports-1")
+def resultsByTournament(eventId: int, playerId: int):
+    client = makeConnection()
+    query = '''
+    query ResultsByTournament{
+    event(id: %d){
+        sets(page:1, perPage: 10, filters:{
+        playerIds: [%d]
+        }
+        ){
+        nodes {
+            id
+            displayScore
+        }
+        }
+    }
+    }''' % (eventId, playerId)
+    result = json.loads(client.execute(query))
+    return result
+
+
+def printResults(result):
     with open("out.json", 'w') as fout:
         json.dump(result, fout)
 
@@ -81,5 +100,8 @@ def testing():
         print(result['errors'])
     else:
         print('Success!')
+
+def testing():
+    print(getPlayerID("b7c78cda"))
 
 testing()

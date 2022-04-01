@@ -1,41 +1,26 @@
 {
   "data": {
-    "tournament": {
-      "name": "PR Wars: Rebellion - $500 Pot Bonus - Presented by Texoma eSports",
-      "events": [
-        {
-          "id": 651563,
-          "name": "Smash Ultimate Doubles"
-        },
-        {
-          "id": 651575,
-          "name": "Smash Ultimate Singles ($500 Pot Bonus)"
-        },
-        {
-          "id": 651544,
-          "name": "Dragon Ball FighterZ"
-        },
-        {
-          "id": 651562,
-          "name": "Street Fighter V: Champion Edition"
-        },
-        {
-          "id": 651515,
-          "name": "Tekken 7"
-        },
-        {
-          "id": 653119,
-          "name": "Smash Ultimate Squad Strike"
-        },
-        {
-          "id": 651560,
-          "name": "Guilty Gear Strive"
-        },
-        {
-          "id": 697079,
-          "name": "Smash Ultimate Redemption"
-        }
-      ]
+    "event": {
+      "sets": {
+        "nodes": [
+          {
+            "id": 45537455,
+            "displayScore": "Bon 2 - streams 1"
+          },
+          {
+            "id": 45537390,
+            "displayScore": "PvE | Coach Ben 2 - streams 0"
+          },
+          {
+            "id": 45537450,
+            "displayScore": "streams 2 - LilBulb 1"
+          },
+          {
+            "id": 45537377,
+            "displayScore": "streams 2 - MSUTX | suffix 0"
+          }
+        ]
+      }
     }
   },
   "extensions": {
@@ -44,14 +29,14 @@
       "hints": [
         {
           "path": [
-            "tournament"
+            "event"
           ],
-          "maxAge": 300,
+          "maxAge": 60,
           "scope": "PRIVATE"
         }
       ]
     },
-    "queryComplexity": 9
+    "queryComplexity": 5
   },
   "actionRecords": []
 }
