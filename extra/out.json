@@ -1,3 +1,4 @@
+
 {
   "streams": {
     "id": 933708,
@@ -12,6 +13,7 @@
     },
     "losses": {
       "Bon": 1,
+      "Coach Ben": 1,
       "Konk": 1,
       "TeS|Puente": 1,
       "Demothen": 1,
@@ -31,7 +33,8 @@
       "Ender": 1,
       "PCJR": 1,
       "Affergot": 1,
-      "tableturner": 1
+      "tableturner": 1,
+      "SilverTEA": 1
     },
     "losses": {
       "JAMA": 1,
@@ -39,16 +42,19 @@
       "Tobo": 1,
       "YellowRello": 1,
       "Lorenzo": 1,
-      "Coltgames": 1
+      "Coltgames": 1,
+      "Sea/Quence": 1,
+      "Slawdini": 1
     }
   },
   "Solis": {
     "id": 777742,
     "wins": {
+      "Shigura": 1,
       "DARN": 1,
       "YellowRello": 1,
       "2POINT0": 1,
-      "Naux": 1,
+      "Naux": 2,
       "Demothen": 1,
       "Werd": 1,
       "victormcq": 1,
@@ -61,7 +67,7 @@
       "bread": 1
     },
     "losses": {
-      "BIG": 1,
+      "Coach Ben": 1,
       "Brr": 1
     }
   },
@@ -69,89 +75,128 @@
     "id": 816997,
     "wins": {
       "Bon": 1,
+      "Fris": 1,
+      "Crookedman": 1,
+      "victormcq": 1,
       "Demothen": 1,
-      "cluck": 1,
-      "Mavis": 1,
+      "GS | cluck": 1,
+      "Mavis": 2,
       "TinyTea": 1,
       "Rexamillion": 1,
       "Keefchief": 1,
       "Lorenzo": 1,
       "yisah": 1,
-      "PMA3": 1
+      "PMA3": 1,
+      "TeS|Puente": 1
     },
     "losses": {
       "Chumpkin": 1,
       "Atomic": 1,
-      "NOT": 1,
-      "Solis": 1,
+      "Cannon Red": 1,
+      "ATCY": 1,
+      "Solis": 2,
       "Demothen": 1,
-      "Perry": 1
+      "Perry": 1,
+      "Slawdini": 1,
+      "DARN": 1
     }
   },
   "Demothen": {
     "id": 1386175,
     "wins": {
-      "OG": 1,
+      "OG": 2,
       "jees": 1,
+      "TinyTea": 1,
+      "NateTheGreat": 1,
       "Bon": 1,
       "Garcher": 1,
       "Naux": 1,
       "streams": 1,
-      "Cester": 1
+      "Cester": 1,
+      "Chief Quiche": 1
     },
     "losses": {
-      "YellowRello": 1,
+      "YellowRello": 2,
       "Unimpathic": 1,
+      "xLordKingNoahx": 1,
+      "DARN": 1,
       "Ceased": 1,
       "Solis": 1,
-      "Naux": 1
+      "Naux": 1,
+      "Perry": 1,
+      "Fris": 1
     }
   },
   "Chief Quiche": {
     "id": 1173202,
-    "wins": {},
-    "losses": {}
+    "wins": {
+      "2POINT0": 1,
+      "yisah": 1,
+      "victormcq": 1,
+      "THEPICKLE": 1,
+      "Corbs": 1,
+      "Yobi": 1
+    },
+    "losses": {
+      "Superberry": 1,
+      "FreshBot": 1,
+      "Ender": 2,
+      "SPEGGG": 1,
+      "Demothen": 1
+    }
   },
   "victormcq": {
     "id": 993655,
     "wins": {
       "suffix": 1,
       "LilBulb": 1,
+      "Noir": 1,
+      "SmashbAby": 1,
       "Knaught": 1,
       "Bradley": 1,
-      "Jingles": 1
+      "Jingles": 1,
+      "DrewtheLaw": 1,
+      "Sea/Quence": 1
     },
     "losses": {
       "MuayTy": 1,
       "Snickerdoodle": 1,
-      "Solis": 1,
       "Ens": 1,
+      "Naux": 1,
+      "Solis": 1,
       "Mavis": 1,
-      "Chief": 1
+      "Chief Quiche": 1,
+      "xLordKingNoahx": 1,
+      "Coach Ben": 1
     }
   },
   "Mavis": {
     "id": 804585,
     "wins": {
       "TheLoneCoon": 1,
+      "Golden Biscuit": 1,
+      "Ender": 1,
+      "Cluck": 1,
       "NateTheGreat": 1,
       "Ens": 1,
       "TeS|Puente": 1,
-      "cluck": 1,
+      "GS | cluck": 1,
       "DKKO": 1,
       "Africanbatman": 1,
-      "victormcq": 1
+      "victormcq": 1,
+      "Poison Ivy": 1
     },
     "losses": {
       "Chumpkin": 1,
       "EmLo": 1,
-      "Golden": 1,
+      "Coach Ben": 1,
+      "xLordKingNoahx": 1,
       "Coltgames": 1,
       "OG": 1,
-      "Naux": 1,
+      "Naux": 2,
       "Werd": 1,
       "Perry": 1,
-      "Poison": 1
+      "Cannon Red": 1
     }
   }
 }

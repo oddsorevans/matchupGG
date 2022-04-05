@@ -1,3 +1,4 @@
+from distutils.command.clean import clean
 from graphqlclient import GraphQLClient
 import json
 from pprint import pprint
@@ -107,18 +108,26 @@ def resultList(raw: dict):
     for sets in raw["data"]["event"]["sets"]["nodes"]:
         if sets["displayScore"] != "DQ":
             game = sets["displayScore"].split()
-            #get rid of tags and excess
-            while game[1] == '|':
-                del game[1]
-                del game[0]
-            #seperate places since placement depends on others existence
-            while game[4] == '|':
-                del game[4]
-                del game[3]
-            game.remove("-")
+            game = cleanGame(game)
             rList.append(game)
     return rList
 
+def cleanGame(game:list):
+    #create sub lists
+    player1 = game[0: game.index("-")]
+    player2 = game[game.index("-") + 1:]
+    #remove tags
+    if '|' in player1:
+        player1 = player1[player1.index('|') +1:]
+    if '|' in player2:
+        player2 = player2[player2.index('|') +1:]
+    #format and return
+    name1 = " ".join([part for part in player1[0:-1]])
+    score1 = player1[-1]
+    name2 = " ".join([part for part in player2[0:-1]])
+    score2 = player2[-1]
+
+    return [name1, score1, name2, score2]
 
 def printResults(result):
     with open("out.json", 'w') as fout:
