@@ -1,42 +1,91 @@
 {
   "data": {
     "event": {
+      "tournament": {
+        "id": 422544,
+        "name": "Take Notes: Chapter 3! Presented by Texoma eSports and MSU Texas eSports"
+      },
+      "name": "Smash Ultimate Singles",
       "sets": {
         "nodes": [
           {
-            "id": 45537455,
-            "displayScore": "Bon 2 - streams 1"
+            "id": 44917445,
+            "displayScore": "VF | Solis 3 - Tes | Naux 0"
           },
           {
-            "id": 45537390,
-            "displayScore": "PvE | Coach Ben 2 - streams 0"
+            "id": 44917444,
+            "displayScore": "VF | Solis 3 - TeS | Demothen 0"
           },
           {
-            "id": 45537450,
-            "displayScore": "streams 2 - LilBulb 1"
+            "id": 44917572,
+            "displayScore": "TeS | Demothen 1 - Tes | Naux 3"
           },
           {
-            "id": 45537377,
-            "displayScore": "streams 2 - MSUTX | suffix 0"
+            "id": 44917571,
+            "displayScore": "MSUTX | GS | cluck 1 - Tes | Naux 3"
+          },
+          {
+            "id": 44917442,
+            "displayScore": "VF | Solis 3 - Werd 0"
+          },
+          {
+            "id": 44917443,
+            "displayScore": "Tes | Naux 1 - TeS | Demothen 3"
+          },
+          {
+            "id": 44917570,
+            "displayScore": "Tes | Naux 3 - Tes | Mavis 2"
+          },
+          {
+            "id": 44917438,
+            "displayScore": "VF | Solis 2 - victormcq 0"
+          },
+          {
+            "id": 44917440,
+            "displayScore": "Tes | Naux 2 - COZY | TinyTea 0"
+          },
+          {
+            "id": 44917441,
+            "displayScore": "TeS | Demothen 2 - streams 0"
+          },
+          {
+            "id": 44917564,
+            "displayScore": "streams 0 - Noir 2"
+          },
+          {
+            "id": 44917437,
+            "displayScore": "COZY | Ens 1 - streams 2"
+          },
+          {
+            "id": 44917430,
+            "displayScore": "VF | Solis 2 - Sam | Sam_aka_sam 0"
+          },
+          {
+            "id": 44917434,
+            "displayScore": "Tes | Naux 2 - Rexamillion 0"
+          },
+          {
+            "id": 44917436,
+            "displayScore": "TeS | Demothen 2 - VF | OG 1"
+          },
+          {
+            "id": 44917414,
+            "displayScore": "VF | Solis 2 - MSU | suffix 0"
+          },
+          {
+            "id": 44917422,
+            "displayScore": "Tes | Naux 2 - GS | Keefchief 0"
+          },
+          {
+            "id": 44917426,
+            "displayScore": "TeS | Demothen 2 - Cester 0"
+          },
+          {
+            "id": 44917429,
+            "displayScore": "streams 2 - MSUTX | BrayPlay 1"
           }
         ]
       }
     }
-  },
-  "extensions": {
-    "cacheControl": {
-      "version": 1,
-      "hints": [
-        {
-          "path": [
-            "event"
-          ],
-          "maxAge": 60,
-          "scope": "PRIVATE"
-        }
-      ]
-    },
-    "queryComplexity": 5
-  },
-  "actionRecords": []
+  }
 }

@@ -52,7 +52,6 @@ def getPlayerID(slug: str):
         
     }
     result = json.loads(client.execute(query))
-    print(type(result))
     pid = result["data"]["user"]["player"]["id"]
     return pid
 
@@ -71,24 +70,53 @@ def getEventsInTourney(slug:str):
     result = json.loads(client.execute(query))
     return result
 
-def resultsByTournament(eventId: int, playerId: int):
+def resultsByTournament(eventId: int, playerIds: list):
     client = makeConnection()
     query = '''
-    query ResultsByTournament{
-    event(id: %d){
-        sets(page:1, perPage: 10, filters:{
-        playerIds: [%d]
+    query ResultsByTournament($eventID: ID, $playerIDS: [ID]){
+        event(id: $eventID){
+            tournament{
+                id
+                name
+            }
+            name
+            sets(page:1, perPage: 100, filters:{
+            playerIds: $playerIDS
+            }
+            ){
+            nodes {
+                id
+                displayScore
+            }
+            }
         }
-        ){
-        nodes {
-            id
-            displayScore
-        }
-        }
+    }'''
+    qvar = {
+        "eventID":eventId,
+        "playerIDS": playerIds
     }
-    }''' % (eventId, playerId)
-    result = json.loads(client.execute(query))
-    return result
+    result = json.loads(client.execute(query, qvar))
+    result.pop("extensions")
+    result.pop("actionRecords")
+    rList = resultList(result)
+    return rList
+
+def resultList(raw: dict):
+    rList = []
+    for sets in raw["data"]["event"]["sets"]["nodes"]:
+        game = sets["displayScore"].split()
+        #get rid of tags and excess
+        while game[1] == '|':
+            del game[1]
+            del game[0]
+        #seperate places since placement depends on others existence
+        while game[4] == '|':
+            del game[4]
+            del game[3]
+        del(game[2])
+        rList.append(game)
+    del rList[-1]
+    return rList
 
 
 def printResults(result):
@@ -102,6 +130,6 @@ def printResults(result):
         print('Success!')
 
 def testing():
-    print(getPlayerID("b7c78cda"))
+    print(getPlayerID("de8f2797"))
 
-testing()
+#printResults(resultsByTournament(683629, [933708, 816997, 1353105, 777742, 1386175]))
