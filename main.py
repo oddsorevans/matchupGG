@@ -4,7 +4,7 @@ import csv
 import json
 
 #making sure import works
-events = [683629]
+events = [651575, 672211, 683629, 632866]
 results = {}
 
 def loadPlayers():
@@ -43,28 +43,58 @@ def addWLs(matches: list):
 
         #player 1 wins
         if s1 > s2:
-            #add win
-            if p1 not in results[p1]["wins"].keys():
-                results[p1]["wins"][p2] = 1
+            #if neither in
+            if p1 not in results.keys() or p2 not in results.keys():
+                if p1 not in results.keys() and p2 not in results.keys():
+                    pass
+                elif p1 not in results.keys():
+                    if p2 not in results[p2]["losses"].keys():
+                        results[p2]["losses"][p1] = 1
+                    else:
+                        results[p2]["losses"][p1] += 1
+                elif p2 not in results.keys():
+                    if p1 not in results[p1]["wins"].keys():
+                        results[p1]["wins"][p2] = 1
+                    else:
+                        results[p1]["wins"][p2] += 1
+
+            #add win if both present
             else:
-                results[p1]["wins"][p2] += 1
-            #add losses
-            if p2 not in results[p2]["losses"].keys():
-                results[p2]["losses"][p1] = 1
-            else:
-                results[p2]["losses"][p1] += 1
+                if p1 not in results[p1]["wins"].keys():
+                    results[p1]["wins"][p2] = 1
+                else:
+                    results[p1]["wins"][p2] += 1
+                #add losses
+                if p2 not in results[p2]["losses"].keys():
+                    results[p2]["losses"][p1] = 1
+                else:
+                    results[p2]["losses"][p1] += 1
         #player 2 wins
         else:
-            #add win
-            if p2 not in results[p2]["wins"].keys():
-                results[p2]["wins"][p1] = 1
-            else:
-                results[p2]["wins"][p1] += 1
-            #add losses
-            if p1 not in results[p1]["losses"].keys():
-                results[p1]["losses"][p2] = 1
-            else:
-                results[p1]["losses"][p2] += 1
+            if p1 not in results.keys() or p2 not in results.keys():
+                if p1 not in results.keys() and p2 not in results.keys():
+                    pass
+                elif p1 not in results.keys():
+                    if p2 not in results[p2]["wins"].keys():
+                        results[p2]["wins"][p1] = 1
+                    else:
+                        results[p2]["wins"][p1] += 1
+                elif p2 not in results.keys():
+                    if p1 not in results[p1]["losses"].keys():
+                        results[p1]["losses"][p2] = 1
+                    else:
+                        results[p1]["losses"][p2] += 1
+            else:        
+                #add win
+                if p2 not in results[p2]["wins"].keys():
+                    results[p2]["wins"][p1] = 1
+                else:
+                    results[p2]["wins"][p1] += 1
+                #add losses
+                if p1 not in results[p1]["losses"].keys():
+                    results[p1]["losses"][p2] = 1
+                else:
+                    results[p1]["losses"][p2] += 1
 
 def dumpOut(results):
     with open("out.json", 'w') as fout:

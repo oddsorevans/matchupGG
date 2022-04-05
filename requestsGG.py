@@ -39,13 +39,14 @@ def resultsByID(id: int):
 
 def getPlayerID(slug: str):
     client = makeConnection()
-    query = '''query PlayerQuery {
+    query = '''
+    query PlayerQuery {
         user(slug: "user/%s"){
             id
             player {
-        id
-        gamerTag
-      }
+                id
+                gamerTag
+            }
         }
     }''' % (slug)
     qvars = {
@@ -104,18 +105,18 @@ def resultsByTournament(eventId: int, playerIds: list):
 def resultList(raw: dict):
     rList = []
     for sets in raw["data"]["event"]["sets"]["nodes"]:
-        game = sets["displayScore"].split()
-        #get rid of tags and excess
-        while game[1] == '|':
-            del game[1]
-            del game[0]
-        #seperate places since placement depends on others existence
-        while game[4] == '|':
-            del game[4]
-            del game[3]
-        del(game[2])
-        rList.append(game)
-    del rList[-1]
+        if sets["displayScore"] != "DQ":
+            game = sets["displayScore"].split()
+            #get rid of tags and excess
+            while game[1] == '|':
+                del game[1]
+                del game[0]
+            #seperate places since placement depends on others existence
+            while game[4] == '|':
+                del game[4]
+                del game[3]
+            game.remove("-")
+            rList.append(game)
     return rList
 
 
