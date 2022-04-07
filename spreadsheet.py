@@ -21,7 +21,7 @@ yellow = {
 
 #limit to 60 writes per second per user, so to get around this I put in a pause of 30 seconds
 totalWrites = 0
-start = time.time()
+startT = time.time()
 
 def colorCell(worksheet, cell, score):
     #win
@@ -57,8 +57,8 @@ def playerPos():
 
 def setUpSpread():
     global totalWrites
-    global start
-    start = time.time()
+    global startT
+    startT = time.time()
     name = playerPos()
     #rows & columns
     gc = gspread.service_account("key/spreadsheetgg-ea20303b5576.json")
@@ -72,8 +72,10 @@ def setUpSpread():
     
     if(totalWrites >= 60):
         end = time.time()
-        time.sleep(60 - (end-start))
-        start = time.time()
+        print(f"waiting {60 - (end-startT)} seconds")
+        time.sleep(60 - (end-startT))
+        print("continued")
+        startT = time.time()
         totalWrites = 0
 
     return name
@@ -81,7 +83,7 @@ def setUpSpread():
 
 def uploadMU(data: dict, pos:dict):
     global totalWrites
-    global start
+    global startT
     gc = gspread.service_account("key/spreadsheetgg-ea20303b5576.json")
     sh = gc.open("Texoma Information")
 
@@ -100,8 +102,10 @@ def uploadMU(data: dict, pos:dict):
                 totalWrites += 2
                 if(totalWrites >= 60):
                     end = time.time()
-                    time.sleep(60 - (end-start))
-                    start = time.time()
+                    print(f"waiting {60 - (end-startT)} seconds")
+                    time.sleep(60 - (end-startT))
+                    print("continued")
+                    startT = time.time()
                     totalWrites = 0
 
         for loss in data[player]["losses"]:
@@ -117,12 +121,15 @@ def uploadMU(data: dict, pos:dict):
                 totalWrites += 2
                 if(totalWrites >= 60):
                     end = time.time()
-                    time.sleep(60 - (end-start))
-                    start = time.time()
+                    print(f"waiting {60 - (end-startT)} seconds")
+                    time.sleep(60 - (end-startT))
+                    print("continued")
+                    startT = time.time()
                     totalWrites = 0
 
 def dumpAll(data: dict):
     global totalWrites
+    global startT
     gc = gspread.service_account("key/spreadsheetgg-ea20303b5576.json")
     sh = gc.open("Texoma Information")
 
@@ -130,14 +137,18 @@ def dumpAll(data: dict):
     start = 1
     for player in data:
         dump.update_cell(start, 1, player)
+        colorCell(dump, "A" + str(start), "1-1")
         start += 1
         dump.update_cell(start, 1, "WINS")
+        colorCell(dump, "A" + str(start), "1-0")
         start += 1
-        totalWrites += 2
+        totalWrites += 4
         if(totalWrites >= 60):
             end = time.time()
-            time.sleep(60 - (end-start))
-            start = time.time()
+            print(f"waiting {60 - (end-startT)} seconds")
+            time.sleep(60 - (end-startT))
+            print("continued")
+            startT = time.time()
             totalWrites = 0
 
         i = 1
@@ -146,8 +157,10 @@ def dumpAll(data: dict):
             totalWrites += 1
             if(totalWrites >= 60):
                 end = time.time()
-                time.sleep(60 - (end-start))
-                start = time.time()
+                print(f"waiting {60 - (end-startT)} seconds")
+                time.sleep(60 - (end-startT))
+                print("continued")
+                startT = time.time()
                 totalWrites = 0
             i += 1
             if(i > 5):
@@ -155,11 +168,14 @@ def dumpAll(data: dict):
                 i = 1
         start += 1
         dump.update_cell(start, 1, "LOSSES")
-        totalWrites += 1
+        colorCell(dump, "A" + str(start), "0-1")
+        totalWrites += 2
         if(totalWrites >= 60):
             end = time.time()
-            time.sleep(60 - (end-start))
-            start = time.time()
+            print(f"waiting {60 - (end-startT)} seconds")
+            time.sleep(60 - (end-startT))
+            print("continued")
+            startT = time.time()
             totalWrites = 0
         start += 1
         i = 1
@@ -168,8 +184,10 @@ def dumpAll(data: dict):
             totalWrites += 1
             if(totalWrites >= 60):
                 end = time.time()
-                time.sleep(60 - (end-start))
-                start = time.time()
+                print(f"waiting {60 - (end-startT)} seconds")
+                time.sleep(60 - (end-startT))
+                print("continued")
+                startT = time.time()
                 totalWrites = 0
             i += 1
             if(i > 5):
