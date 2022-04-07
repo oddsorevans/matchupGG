@@ -43,8 +43,7 @@ def colorCell(worksheet, cell, score):
         })
 
 
-def setUpSpread():
-    global totalWrites
+def playerPos():
     with open("extra/players.csv", 'r') as fin:
         csvreader = csv.reader(fin)
         header = next(csvreader)
@@ -53,6 +52,11 @@ def setUpSpread():
         for line in csvreader:
             name[line[0]] = pos
             pos += 1
+    return name
+
+def setUpSpread():
+    global totalWrites
+    name = playerPos()
     #rows & columns
     gc = gspread.service_account("key/spreadsheetgg-ea20303b5576.json")
     sh = gc.open("Texoma Information")
@@ -126,7 +130,7 @@ def dumpAll(data: dict):
 
         i = 1
         for opp in data[player]["wins"]:
-            dump.update_cell(start, i, opp + "| " + str(data[player]["wins"][opp]))
+            dump.update_cell(start, i, opp + " | " + str(data[player]["wins"][opp]))
             totalWrites += 1
             if(totalWrites >= 60):
                 time.sleep(60)
@@ -144,7 +148,7 @@ def dumpAll(data: dict):
         start += 1
         i = 1
         for opp in data[player]["losses"]:
-            dump.update_cell(start, i, opp + "| " + str(data[player]["losses"][opp]))
+            dump.update_cell(start, i, opp + " | " + str(data[player]["losses"][opp]))
             totalWrites += 1
             if(totalWrites >= 60):
                 time.sleep(60)
@@ -159,6 +163,7 @@ def dumpAll(data: dict):
 """ with open("extra/out.json", 'r') as fin:
     data = json.load(fin)
 
+time.sleep(5)
 name = setUpSpread()
 uploadMU(data, name)
 dumpAll(data) """

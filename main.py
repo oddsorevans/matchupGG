@@ -1,4 +1,5 @@
 import requestsGG
+import spreadsheet
 from pprint import pprint
 import csv
 import json
@@ -103,3 +104,6 @@ def dumpOut(results):
 loadPlayers()
 updateByTournament()
 dumpOut(results)
+name = spreadsheet.setUpSpread()
+spreadsheet.uploadMU(results, name)
+spreadsheet.dumpAll(results)
