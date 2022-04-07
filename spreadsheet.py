@@ -1,6 +1,7 @@
 import gspread
 import csv
 import json
+import time
 
 green = {
     "red": 0.0,
@@ -17,6 +18,9 @@ yellow = {
     "green": 1.0,
     "blue": 0.0
 }
+
+#limit to 60 writes per second per user, so to get around this I put in a pause of 30 seconds
+totalWrites = 0
 
 def colorCell(worksheet, cell, score):
     #win
@@ -40,6 +44,7 @@ def colorCell(worksheet, cell, score):
 
 
 def setUpSpread():
+    global totalWrites
     with open("extra/players.csv", 'r') as fin:
         csvreader = csv.reader(fin)
         header = next(csvreader)
@@ -56,11 +61,17 @@ def setUpSpread():
     for key in name:
         matchups.update_cell(1, name[key] + 1, str(key))
         matchups.update_cell(name[key] + 1, 1, str(key))
+        totalWrites += 2
     
+    if(totalWrites >= 60):
+        time.sleep(60)
+        totalWrites = 0
+
     return name
 
 
 def uploadMU(data: dict, pos:dict):
+    global totalWrites
     gc = gspread.service_account("key/spreadsheetgg-ea20303b5576.json")
     sh = gc.open("Texoma Information")
 
@@ -76,6 +87,11 @@ def uploadMU(data: dict, pos:dict):
                 index = chr(pos[player] + 65) + str(pos[win]+1)
                 matchups.update_acell(index, score)
                 colorCell(matchups, index, score)
+                totalWrites += 2
+                if(totalWrites >= 60):
+                    time.sleep(60)
+                    totalWrites = 0
+
         for loss in data[player]["losses"]:
             score = ""
             if loss in pos.keys():
@@ -86,9 +102,63 @@ def uploadMU(data: dict, pos:dict):
                 index = chr(pos[player] + 65) + str(pos[loss]+1)
                 matchups.update_acell(index, score)
                 colorCell(matchups, index, score)
+                totalWrites += 2
+                if(totalWrites >= 60):
+                    time.sleep(60)
+                    totalWrites = 0
 
-with open("extra/out.json", 'r') as fin:
+def dumpAll(data: dict):
+    global totalWrites
+    gc = gspread.service_account("key/spreadsheetgg-ea20303b5576.json")
+    sh = gc.open("Texoma Information")
+
+    dump = sh.worksheet("All Wins & Losses")
+    start = 1
+    for player in data:
+        dump.update_cell(start, 1, player)
+        start += 1
+        dump.update_cell(start, 1, "WINS")
+        start += 1
+        totalWrites += 2
+        if(totalWrites >= 60):
+            time.sleep(60)
+            totalWrites = 0
+
+        i = 1
+        for opp in data[player]["wins"]:
+            dump.update_cell(start, i, opp + "| " + str(data[player]["wins"][opp]))
+            totalWrites += 1
+            if(totalWrites >= 60):
+                time.sleep(60)
+                totalWrites = 0
+            i += 1
+            if(i > 5):
+                start += 1
+                i = 1
+        start += 1
+        dump.update_cell(start, 1, "LOSSES")
+        totalWrites += 1
+        if(totalWrites >= 60):
+            time.sleep(60)
+            totalWrites = 0
+        start += 1
+        i = 1
+        for opp in data[player]["losses"]:
+            dump.update_cell(start, i, opp + "| " + str(data[player]["losses"][opp]))
+            totalWrites += 1
+            if(totalWrites >= 60):
+                time.sleep(60)
+                totalWrites = 0
+            i += 1
+            if(i > 5):
+                start += 1
+                i = 1
+        start += 2
+
+
+""" with open("extra/out.json", 'r') as fin:
     data = json.load(fin)
 
 name = setUpSpread()
 uploadMU(data, name)
+dumpAll(data) """
