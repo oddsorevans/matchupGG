@@ -19,10 +19,6 @@ yellow = {
     "blue": 0.0
 }
 
-#limit to 60 writes per second per user, so to get around this I put in a pause of 30 seconds
-totalWrites = 0
-startT = time.time()
-
 def colorCell(worksheet, cell, score):
     #win
     if int(score[0]) > int(score[2]):
@@ -68,15 +64,7 @@ def setUpSpread():
     for key in name:
         matchups.update_cell(1, name[key] + 1, str(key))
         matchups.update_cell(name[key] + 1, 1, str(key))
-        totalWrites += 2
-    
-    if(totalWrites >= 60):
-        end = time.time()
-        print(f"waiting {60 - (end-startT)} seconds")
-        time.sleep(60 - (end-startT))
-        print("continued")
-        startT = time.time()
-        totalWrites = 0
+        time.sleep(2)
 
     return name
 
@@ -99,14 +87,7 @@ def uploadMU(data: dict, pos:dict):
                 index = chr(pos[player] + 65) + str(pos[win]+1)
                 matchups.update_acell(index, score)
                 colorCell(matchups, index, score)
-                totalWrites += 2
-                if(totalWrites >= 60):
-                    end = time.time()
-                    print(f"waiting {60 - (end-startT)} seconds")
-                    time.sleep(60 - (end-startT))
-                    print("continued")
-                    startT = time.time()
-                    totalWrites = 0
+                time.sleep(2)
 
         for loss in data[player]["losses"]:
             score = ""
@@ -118,14 +99,7 @@ def uploadMU(data: dict, pos:dict):
                 index = chr(pos[player] + 65) + str(pos[loss]+1)
                 matchups.update_acell(index, score)
                 colorCell(matchups, index, score)
-                totalWrites += 2
-                if(totalWrites >= 60):
-                    end = time.time()
-                    print(f"waiting {60 - (end-startT)} seconds")
-                    time.sleep(60 - (end-startT))
-                    print("continued")
-                    startT = time.time()
-                    totalWrites = 0
+                time.sleep(2)
 
 def dumpAll(data: dict):
     global totalWrites
@@ -139,29 +113,16 @@ def dumpAll(data: dict):
         dump.update_cell(start, 1, player)
         colorCell(dump, "A" + str(start), "1-1")
         start += 1
+        time.sleep(2)
         dump.update_cell(start, 1, "WINS")
         colorCell(dump, "A" + str(start), "1-0")
         start += 1
-        totalWrites += 4
-        if(totalWrites >= 60):
-            end = time.time()
-            print(f"waiting {60 - (end-startT)} seconds")
-            time.sleep(60 - (end-startT))
-            print("continued")
-            startT = time.time()
-            totalWrites = 0
+        time.sleep(2)
 
         i = 1
         for opp in data[player]["wins"]:
             dump.update_cell(start, i, opp + " | " + str(data[player]["wins"][opp]))
-            totalWrites += 1
-            if(totalWrites >= 60):
-                end = time.time()
-                print(f"waiting {60 - (end-startT)} seconds")
-                time.sleep(60 - (end-startT))
-                print("continued")
-                startT = time.time()
-                totalWrites = 0
+            time.sleep(1)
             i += 1
             if(i > 5):
                 start += 1
@@ -169,26 +130,12 @@ def dumpAll(data: dict):
         start += 1
         dump.update_cell(start, 1, "LOSSES")
         colorCell(dump, "A" + str(start), "0-1")
-        totalWrites += 2
-        if(totalWrites >= 60):
-            end = time.time()
-            print(f"waiting {60 - (end-startT)} seconds")
-            time.sleep(60 - (end-startT))
-            print("continued")
-            startT = time.time()
-            totalWrites = 0
+        time.sleep(2)
         start += 1
         i = 1
         for opp in data[player]["losses"]:
             dump.update_cell(start, i, opp + " | " + str(data[player]["losses"][opp]))
-            totalWrites += 1
-            if(totalWrites >= 60):
-                end = time.time()
-                print(f"waiting {60 - (end-startT)} seconds")
-                time.sleep(60 - (end-startT))
-                print("continued")
-                startT = time.time()
-                totalWrites = 0
+            time.sleep(1)
             i += 1
             if(i > 5):
                 start += 1

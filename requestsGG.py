@@ -106,7 +106,8 @@ def resultsByTournament(eventId: int, playerIds: list):
 def resultList(raw: dict):
     rList = []
     for sets in raw["data"]["event"]["sets"]["nodes"]:
-        if sets["displayScore"] != "DQ":
+        if sets["displayScore"] != "DQ" and sets["displayScore"] is not None:
+            print(sets["displayScore"])
             game = sets["displayScore"].split()
             game = cleanGame(game)
             rList.append(game)

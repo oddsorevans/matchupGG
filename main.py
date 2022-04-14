@@ -5,7 +5,7 @@ import csv
 import json
 
 #making sure import works
-events = [651575,655158,672211,683629,632866,647605]
+events = [662342,672211,683629,689644,651575,702689,674370,697615,696236]
 results = {}
 
 def loadPlayers():
