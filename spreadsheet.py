@@ -58,7 +58,7 @@ def setUpSpread():
     name = playerPos()
     #rows & columns
     gc = gspread.service_account("key/spreadsheetgg-ea20303b5576.json")
-    sh = gc.open("Texoma Information")
+    sh = gc.open("Texoma PR last 2022")
     matchups = sh.worksheet("Matchups")
 
     for key in name:
@@ -73,7 +73,7 @@ def uploadMU(data: dict, pos:dict):
     global totalWrites
     global startT
     gc = gspread.service_account("key/spreadsheetgg-ea20303b5576.json")
-    sh = gc.open("Texoma Information")
+    sh = gc.open("Texoma PR last 2022")
 
     matchups = sh.worksheet("Matchups")
     for player in data:
@@ -105,7 +105,7 @@ def dumpAll(data: dict):
     global totalWrites
     global startT
     gc = gspread.service_account("key/spreadsheetgg-ea20303b5576.json")
-    sh = gc.open("Texoma Information")
+    sh = gc.open("Texoma PR last 2022")
 
     dump = sh.worksheet("All Wins & Losses")
     start = 1

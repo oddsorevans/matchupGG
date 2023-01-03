@@ -3,9 +3,10 @@ import spreadsheet
 from pprint import pprint
 import csv
 import json
+import time
 
 #making sure import works
-events = [662342,672211,683629,689644,651575,702689,674370,697615,696236,714236,714246]
+events = [737815,743267,749888,73682,763397,764792,774453,783911,785689,801230,811387,768247,821235,762987,774453,815767,792156]
 results = {}
 
 def loadPlayers():
@@ -33,6 +34,7 @@ def updateByTournament():
     for event in events:
         matches = requestsGG.resultsByTournament(event, IDS)
         addWLs(matches)
+        time.sleep(1)
         #pprint(matches)
 
 def addWLs(matches: list):
@@ -42,8 +44,14 @@ def addWLs(matches: list):
         p2 = match[2]
         s2 = match[3]
 
+        #account for name change
+        if p1 == "Ender":
+            p1 = "E.N.D."
+        if p2 == "Ender":
+            p2 = "E.N.D."
+
         #player 1 wins
-        if s1 > s2:
+        if s1 > s2 or (s1 == 'W' and s2 == 'L'):
             #if neither in
             if p1 not in results.keys() or p2 not in results.keys():
                 if p1 not in results.keys() and p2 not in results.keys():
