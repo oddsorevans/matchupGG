@@ -73,6 +73,7 @@ def getEventsInTourney(slug:str):
     return result
 
 def resultsByTournament(eventId: int, playerIds: list):
+    print(eventId)
     client = makeConnection()
     query = '''
     query ResultsByTournament($eventID: ID, $playerIDS: [ID]){

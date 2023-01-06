@@ -6,7 +6,7 @@ import json
 import time
 
 #making sure import works
-events = [737815,743267,749888,73682,763397,764792,774453,783911,785689,801230,811387,768247,821235,762987,774453,815767,792156]
+events = [737815,743267,749888,736829,763397,764792,783911,785689,801230,811387,768247,821235,762987,774453,815767,792156,747693]
 results = {}
 
 def loadPlayers():
@@ -45,10 +45,14 @@ def addWLs(matches: list):
         s2 = match[3]
 
         #account for name change
-        if p1 == "Ender":
-            p1 = "E.N.D."
-        if p2 == "Ender":
-            p2 = "E.N.D."
+        if p1 == "GS | cluck":
+            p1 = "cluck"
+        if p2 == "GS | cluck":
+            p2 = "cluck"
+        if p1 == "Yu":
+            p1 = "polanco"
+        if p2 == "Yu":
+            p2 = "polanco"
 
         #player 1 wins
         if s1 > s2 or (s1 == 'W' and s2 == 'L'):
@@ -84,23 +88,23 @@ def addWLs(matches: list):
                 if p1 not in results.keys() and p2 not in results.keys():
                     pass
                 elif p1 not in results.keys():
-                    if p2 not in results[p2]["wins"].keys():
+                    if p1 not in results[p2]["wins"].keys():
                         results[p2]["wins"][p1] = 1
                     else:
                         results[p2]["wins"][p1] += 1
                 elif p2 not in results.keys():
-                    if p1 not in results[p1]["losses"].keys():
+                    if p2 not in results[p1]["losses"].keys():
                         results[p1]["losses"][p2] = 1
                     else:
                         results[p1]["losses"][p2] += 1
             else:        
                 #add win
-                if p2 not in results[p2]["wins"].keys():
+                if p1 not in results[p2]["wins"].keys():
                     results[p2]["wins"][p1] = 1
                 else:
                     results[p2]["wins"][p1] += 1
                 #add losses
-                if p1 not in results[p1]["losses"].keys():
+                if p2 not in results[p1]["losses"].keys():
                     results[p1]["losses"][p2] = 1
                 else:
                     results[p1]["losses"][p2] += 1
