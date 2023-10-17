@@ -1,6 +1,5 @@
 import gspread
 import csv
-import json
 import time
 
 green = {
@@ -51,15 +50,15 @@ def playerPos():
             pos += 1
     return name
 
-def setUpSpread():
+def setUpSpread(shName:str, h2hName:str, key:str):
     global totalWrites
     global startT
     startT = time.time()
     name = playerPos()
     #rows & columns
-    gc = gspread.service_account("key/spreadsheetgg-ea20303b5576.json")
-    sh = gc.open("Texoma PR last 2022")
-    matchups = sh.worksheet("Matchups")
+    gc = gspread.service_account(key)
+    sh = gc.open(shName)
+    matchups = sh.worksheet(h2hName)
 
     for key in name:
         matchups.update_cell(1, name[key] + 1, str(key))
@@ -69,13 +68,13 @@ def setUpSpread():
     return name
 
 
-def uploadMU(data: dict, pos:dict):
+def uploadMU(data: dict, pos:dict, shName:str, h2hName:str, key:str):
     global totalWrites
     global startT
-    gc = gspread.service_account("key/spreadsheetgg-ea20303b5576.json")
-    sh = gc.open("Texoma PR last 2022")
+    gc = gspread.service_account(key)
+    sh = gc.open(shName)
 
-    matchups = sh.worksheet("Matchups")
+    matchups = sh.worksheet(h2hName)
     for player in data:
         for win in data[player]["wins"]:
             score = ""
@@ -101,13 +100,13 @@ def uploadMU(data: dict, pos:dict):
                 colorCell(matchups, index, score)
                 time.sleep(2)
 
-def dumpAll(data: dict):
+def dumpAll(data: dict, shName:str, allName:str, key:str):
     global totalWrites
     global startT
-    gc = gspread.service_account("key/spreadsheetgg-ea20303b5576.json")
-    sh = gc.open("Texoma PR last 2022")
+    gc = gspread.service_account(key)
+    sh = gc.open(shName)
 
-    dump = sh.worksheet("All Wins & Losses")
+    dump = sh.worksheet(allName)
     start = 1
     for player in data:
         dump.update_cell(start, 1, player)
@@ -141,12 +140,3 @@ def dumpAll(data: dict):
                 start += 1
                 i = 1
         start += 2
-
-
-""" with open("extra/out.json", 'r') as fin:
-    data = json.load(fin)
-
-time.sleep(5)
-name = setUpSpread()
-uploadMU(data, name)
-dumpAll(data) """

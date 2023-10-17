@@ -1,13 +1,16 @@
 import requestsGG
 import spreadsheet
-from pprint import pprint
 import csv
 import json
 import time
 
-#making sure import works
-events = [737815,743267,749888,736829,763397,764792,783911,785689,801230,811387,768247,821235,762987,774453,815767,792156,747693]
+events = [] #get from api explorer. Instructions in README
 results = {}
+authToken = '' #start.gg auth token. Link to instructions in README
+pathToSpreadsheetJSON = "file path to authentication json key"
+spreadsheetName = 'Spreadsheet name'
+head2head = 'head 2 head worksheet name'
+allWL = 'all matchups worksheet name'
 
 def loadPlayers():
     with open("extra/players.csv", 'r') as pList:
@@ -17,7 +20,7 @@ def loadPlayers():
             player = line[0]
             slug = line[1]
             results[player] = {
-                "id": requestsGG.getPlayerID(slug),
+                "id": requestsGG.getPlayerID(slug, authToken),
                 "wins": {
 
                 },
@@ -32,10 +35,9 @@ def updateByTournament():
         IDS.append(results[player]["id"])
         print(player)
     for event in events:
-        matches = requestsGG.resultsByTournament(event, IDS)
+        matches = requestsGG.resultsByTournament(event, IDS, authToken)
         addWLs(matches)
         time.sleep(1)
-        #pprint(matches)
 
 def addWLs(matches: list):
     for match in matches:
@@ -44,15 +46,11 @@ def addWLs(matches: list):
         p2 = match[2]
         s2 = match[3]
 
-        #account for name change
-        if p1 == "GS | cluck":
-            p1 = "cluck"
-        if p2 == "GS | cluck":
-            p2 = "cluck"
-        if p1 == "Yu":
-            p1 = "polanco"
-        if p2 == "Yu":
-            p2 = "polanco"
+        #account for name change mid season. Below is an example
+        # if p1 == "Yu":
+        #     p1 = "polanco"
+        # if p2 == "Yu":
+        #     p2 = "polanco"
 
         #player 1 wins
         if s1 > s2 or (s1 == 'W' and s2 == 'L'):
@@ -116,6 +114,6 @@ def dumpOut(results):
 loadPlayers()
 updateByTournament()
 dumpOut(results)
-name = spreadsheet.setUpSpread()
-spreadsheet.uploadMU(results, name)
-spreadsheet.dumpAll(results)
+name = spreadsheet.setUpSpread(spreadsheetName, head2head, pathToSpreadsheetJSON)
+spreadsheet.uploadMU(results, name, spreadsheetName, head2head, pathToSpreadsheetJSON)
+spreadsheet.dumpAll(results, spreadsheetName, allWL, pathToSpreadsheetJSON)

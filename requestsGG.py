@@ -4,15 +4,14 @@ import json
 from pprint import pprint
 
 apiVersion = 'alpha'
-authToken = 'a15f3f251d81704f6fcff229ee2840e0'
 
-def makeConnection():
+def makeConnection(authToken: str):
     client = GraphQLClient('https://api.smash.gg/gql/' + apiVersion)
     client.inject_token('Bearer ' + authToken)
     return client
 
-def resultsByID(id: int):
-    client = makeConnection()
+def resultsByID(id: int, authToken: str):
+    client = makeConnection(authToken)
     query = '''query Sets($playerID: ID!) {
     player(id: $playerID) {
         id
@@ -38,8 +37,8 @@ def resultsByID(id: int):
     result = client.execute(query, qvars)
     return result
 
-def getPlayerID(slug: str):
-    client = makeConnection()
+def getPlayerID(slug: str, authToken: str):
+    client = makeConnection(authToken)
     query = '''
     query PlayerQuery {
         user(slug: "user/%s"){
@@ -72,9 +71,9 @@ def getEventsInTourney(slug:str):
     result = json.loads(client.execute(query))
     return result
 
-def resultsByTournament(eventId: int, playerIds: list):
+def resultsByTournament(eventId: int, playerIds: list, authToken:str):
     print(eventId)
-    client = makeConnection()
+    client = makeConnection(authToken)
     query = '''
     query ResultsByTournament($eventID: ID, $playerIDS: [ID]){
         event(id: $eventID){
@@ -141,7 +140,3 @@ def printResults(result):
     else:
         print('Success!')
 
-def testing():
-    print(getPlayerID("de8f2797"))
-
-#printResults(resultsByTournament(683629, [933708, 816997, 1353105, 777742, 1386175]))
