@@ -1,33 +1,32 @@
 import requestsGG
 import spreadsheet
-import csv
-import json
 import time
+import json
+import sys
 
-events = [] #get from api explorer. Instructions in README
+events = json.loads(sys.argv[6])#get from api explorer. Instructions in README
 results = {}
-authToken = '' #start.gg auth token. Link to instructions in README
-pathToSpreadsheetJSON = "file path to authentication json key"
-spreadsheetName = 'Spreadsheet name'
-head2head = 'head 2 head worksheet name'
-allWL = 'all matchups worksheet name'
+authToken = sys.argv[1] #start.gg auth token. Link to instructions in README
+pathToSpreadsheetJSON = sys.argv[2]
+spreadsheetName = sys.argv[3]
+head2head = sys.argv[4]
+allWL = sys.argv[5]
+players = json.loads(sys.argv[7])
 
 def loadPlayers():
-    with open("extra/players.csv", 'r') as pList:
-        csvreader = csv.reader(pList)
-        header = next(csvreader)
-        for line in csvreader:
-            player = line[0]
-            slug = line[1]
-            results[player] = {
-                "id": requestsGG.getPlayerID(slug, authToken),
-                "wins": {
 
-                },
-                "losses":{
+    for i in range(int(len(players)/2)):
+        player = players[i*2]
+        slug = players[i*2+1]
+        results[player] = {
+            "id": requestsGG.getPlayerID(slug, authToken),
+            "wins": {
 
-                }
+            },
+            "losses":{
+
             }
+        }
 
 def updateByTournament():
     IDS = []
@@ -107,13 +106,8 @@ def addWLs(matches: list):
                 else:
                     results[p1]["losses"][p2] += 1
 
-def dumpOut(results):
-    with open("extra/out.json", 'w') as fout:
-        json.dump(results, fout)
-
 loadPlayers()
 updateByTournament()
-dumpOut(results)
 name = spreadsheet.setUpSpread(spreadsheetName, head2head, pathToSpreadsheetJSON)
 spreadsheet.uploadMU(results, name, spreadsheetName, head2head, pathToSpreadsheetJSON)
 spreadsheet.dumpAll(results, spreadsheetName, allWL, pathToSpreadsheetJSON)

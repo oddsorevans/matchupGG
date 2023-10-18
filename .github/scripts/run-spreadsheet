@@ -1,0 +1,59 @@
+#!/usr/bin/env bash
+function usage {
+  [[ -n "$1" ]] && echo "$1"
+  cat <<EOD
+
+Usage: run-spreadsheet <startGGToken> <googleAuth> <spreadsheetName> <headToHeadWS> <allWinsLossesWS> <events> <playerSlugs>
+
+This script will create the temp files needed to run the python program, and then run the program
+
+<startGGToken> token given by startGG Account
+<googleAuth> the contents of the json file provided by google api that serves as a key
+<spreadsheetName> name of the spreadsheet that the data is being written to
+<headToHeadWS> name of the worksheet that the head to head data is being written to
+<allWinsLossesWS> name of the worksheet that the all wins and losses data is being written to
+<events> string of all events used that the data is pulling from, formatted like a python list
+<playerSlugs> string of all player and slug pairs used for pulling data. formatted like a python list
+
+EOD
+  exit 1
+}
+
+[[ "$1" = -h ]] && usage
+
+aws sts get-caller-identity > /dev/null
+[[ $? -ne 0 ]] && usage
+
+function note {
+    echo ▶ $@ '...'
+}
+
+function cleanup {
+  note Removing work directory
+  rm -rf $work_dir
+}
+
+set -o errexit -o errtrace
+trap cleanup INT ERR
+
+startGGToken=${1:?'Missing required startGGToken'}
+googleAuth=${2:?'Missing required googleAuth'}
+spreadsheetName=${3:?'Missing required spreadsheetName'}
+headToHeadWS=${4:?'Missing required headToHeadWS'}
+allWinsLossesWS=${5:?'Missing required allWinsLossesWS'}
+events=${6:?'Missing required events'}
+playerSlugs=${7:?'Missing required playerSlugs'}
+
+# create temp directory for key
+work_dir=$(mktemp -d)
+cert_json="$work_dir/google_cert.json"
+unformatted_json="$work_dir/unformatted_cert.json"
+
+#create cert_json
+echo "$googleAuth" > "$unformatted_json"
+awk '{printf "%s\\n", $0}' "$unformatted_json" > "$cert_json"
+
+#run python main
+python main.py "$startGGToken" "$cert_json" "$spreadsheetName" "$headToHeadWS" "$allWinsLossesWS" "$events" "$playerSlugs"
+
+cleanup

@@ -1,0 +1,53 @@
+name: Create Matchup Spreadsheet
+on:
+    workflow_dispatch:
+        inputs:
+            startGGToken:
+                description: Start GG Token
+                required: true
+                type: string
+            googleAuth:
+                description: Contents of Google Auth JSON. Formatted to single line
+                required: true
+                type: string
+            spreadsheetName:
+                description: Name of spreadsheet
+                required: true
+                type: string
+            headToHeadWS:
+                description: Name of Head to Head Worksheet
+                required: true
+                type: string
+            allWinsLossesWS:
+                description: Name of All Wins & Losses Worksheet
+                required: true
+                type: string
+            events:
+                description: List of all events. Formatted as python list
+                required: true
+                type: string
+            playerSlugs:
+                description: List of tags and slugs. Formatted as python list
+                required: true
+                type: string
+            
+jobs:
+    write-spreadsheet:
+        runs-on: ubuntu-latest
+        steps:
+        -   name: Hide sensitive inputs
+            uses: levibostian/action-hide-sensitive-inputs@1.0.0
+        -   name: Checkout repo
+            uses: actions/checkout@v4
+        -   name: setup python
+            uses: actions/setup-python@v4
+            with:
+                python-version: '3.11' #install python version
+                cache: 'pip'
+        -   run: pip install -r requirements.txt
+        -   name: gain permissions
+            run: chmod +x .github/scripts/run-spreadsheet
+        -   name: run script
+            run: run-spreadsheet ${{inputs.startGGToken}} ${{inputs.googleAuth}} ${{inputs.spreadsheetName}} ${{inputs.headToHeadWS}} ${{inputs.allWinsLossesWS}} ${{inputs.events}} ${{inputs.playerSlugs}}
+        
+        
