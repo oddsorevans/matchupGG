@@ -107,7 +107,12 @@ def addWLs(matches: list):
                     results[p1]["losses"][p2] += 1
 
 loadPlayers()
+print("loaded players")
 updateByTournament()
+print("updated by tournament")
 name = spreadsheet.setUpSpread(spreadsheetName, head2head, pathToSpreadsheetJSON)
+print("set up spread")
 spreadsheet.uploadMU(results, name, spreadsheetName, head2head, pathToSpreadsheetJSON)
+print("uploaded MU")
 spreadsheet.dumpAll(results, spreadsheetName, allWL, pathToSpreadsheetJSON)
+print("dumped")

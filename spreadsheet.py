@@ -56,9 +56,11 @@ def setUpSpread(shName:str, h2hName:str, key:str):
     startT = time.time()
     name = playerPos()
     #rows & columns
+    print("connecting")
     gc = gspread.service_account(key)
     sh = gc.open(shName)
     matchups = sh.worksheet(h2hName)
+    print("connected")
 
     for key in name:
         matchups.update_cell(1, name[key] + 1, str(key))
