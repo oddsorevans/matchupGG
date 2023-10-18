@@ -3,31 +3,31 @@ on:
     workflow_dispatch:
         inputs:
             startGGToken:
-                description: Start GG Token
+                description: startGGToken
                 required: true
                 type: string
             googleAuth:
-                description: Contents of Google Auth JSON. Formatted to single line
+                description: googleAuth
                 required: true
                 type: string
             spreadsheetName:
-                description: Name of spreadsheet
+                description: spreadsheetName
                 required: true
                 type: string
             headToHeadWS:
-                description: Name of Head to Head Worksheet
+                description: headToHeadWS
                 required: true
                 type: string
             allWinsLossesWS:
-                description: Name of All Wins & Losses Worksheet
+                description: allWinsLossesWS
                 required: true
                 type: string
             events:
-                description: List of all events. Formatted as python list
+                description: events
                 required: true
                 type: string
             playerSlugs:
-                description: List of tags and slugs. Formatted as python list
+                description: playerSlugs
                 required: true
                 type: string
             
