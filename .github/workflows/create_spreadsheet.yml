@@ -48,6 +48,6 @@ jobs:
         -   name: gain permissions
             run: chmod +x .github/scripts/run-spreadsheet
         -   name: run script
-            run: ./run-spreadsheet ${{inputs.startGGToken}} ${{inputs.googleAuth}} ${{inputs.spreadsheetName}} ${{inputs.headToHeadWS}} ${{inputs.allWinsLossesWS}} ${{inputs.events}} ${{inputs.playerSlugs}}
+            run: ./.github/scripts/run-spreadsheet ${{inputs.startGGToken}} ${{inputs.googleAuth}} ${{inputs.spreadsheetName}} ${{inputs.headToHeadWS}} ${{inputs.allWinsLossesWS}} ${{inputs.events}} ${{inputs.playerSlugs}}
         
         
