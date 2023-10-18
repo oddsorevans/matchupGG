@@ -18,11 +18,9 @@ playerSlugs=${7:?'Missing required playerSlugs'}
 # create temp directory for key
 work_dir=$(mktemp -d)
 cert_json="$work_dir/google_cert.json"
-unformatted_json="$work_dir/unformatted_cert.json"
 
 #create cert_json
-echo "$googleAuth" > "$unformatted_json"
-awk '{printf "%s\\n", $0}' "$unformatted_json" > "$cert_json"
+printf "%s" "$googleAuth" > "$cert_json"
 
 #run python main
 python main.py "$startGGToken" "$cert_json" "$spreadsheetName" "$headToHeadWS" "$allWinsLossesWS" "$events" "$playerSlugs"
