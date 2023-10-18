@@ -14,6 +14,8 @@ allWL = sys.argv[5]
 events = sys.argv[6] #get from api explorer. Instructions in README
 events = json.loads(events)
 players = sys.argv[7]
+print(players)
+print(type(players))
 players = json.loads(players)
 
 def loadPlayers():
