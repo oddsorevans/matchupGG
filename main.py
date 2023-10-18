@@ -4,14 +4,17 @@ import time
 import json
 import sys
 
-events = json.loads(sys.argv[6])#get from api explorer. Instructions in README
+print(sys.argv)
 results = {}
 authToken = sys.argv[1] #start.gg auth token. Link to instructions in README
 pathToSpreadsheetJSON = sys.argv[2]
 spreadsheetName = sys.argv[3]
 head2head = sys.argv[4]
 allWL = sys.argv[5]
-players = json.loads(sys.argv[7])
+events = sys.argv[6] #get from api explorer. Instructions in README
+events = json.loads(events)
+players = sys.argv[7]
+players = json.loads(players)
 
 def loadPlayers():
 
