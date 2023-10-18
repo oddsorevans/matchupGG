@@ -1,7 +1,6 @@
 import requestsGG
 import spreadsheet
 import time
-import json
 import sys
 
 print(sys.argv)
@@ -11,12 +10,8 @@ pathToSpreadsheetJSON = sys.argv[2]
 spreadsheetName = sys.argv[3]
 head2head = sys.argv[4]
 allWL = sys.argv[5]
-events = sys.argv[6] #get from api explorer. Instructions in README
-events = json.loads(events)
-players = sys.argv[7]
-print(players)
-print(type(players))
-players = json.loads(players)
+events = sys.argv[6].strip('][').split(',') #get from api explorer. Instructions in README
+players = sys.argv[7].strip('][').split(',')
 
 def loadPlayers():
 
