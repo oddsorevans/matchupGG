@@ -23,6 +23,6 @@ cert_json="$work_dir/google_cert.json"
 printf "%s" "$googleAuth" > "$cert_json"
 
 #run python main
-python3 main.py "$startGGToken" "$cert_json" "$spreadsheetName" "$headToHeadWS" "$allWinsLossesWS" "$events" "$playerSlugs"
+python main.py "$startGGToken" "$cert_json" "$spreadsheetName" "$headToHeadWS" "$allWinsLossesWS" "$events" "$playerSlugs"
 
 cleanup
