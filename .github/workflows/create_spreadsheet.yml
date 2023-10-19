@@ -35,8 +35,8 @@ jobs:
     write-spreadsheet:
         runs-on: ubuntu-latest
         steps:
-        # -   name: Hide sensitive inputs
-        #     uses: levibostian/action-hide-sensitive-inputs@1.0.0
+        -   name: Hide sensitive inputs
+            uses: levibostian/action-hide-sensitive-inputs@1.0.0
         -   name: Checkout repo
             uses: actions/checkout@v4
         -   name: setup python
@@ -48,6 +48,6 @@ jobs:
         -   name: gain permissions
             run: chmod +x .github/scripts/run-spreadsheet
         -   name: run script
-            run: ./.github/scripts/run-spreadsheet "${{inputs.startGGToken}}" "${{inputs.googleAuth}}" "${{inputs.spreadsheetName}}" "${{inputs.headToHeadWS}}" "${{inputs.allWinsLossesWS}}" "${{inputs.events}}" "${{inputs.playerSlugs}}"
+            run: ./.github/scripts/run-spreadsheet "${{inputs.startGGToken}}" ${{inputs.googleAuth}} "${{inputs.spreadsheetName}}" "${{inputs.headToHeadWS}}" "${{inputs.allWinsLossesWS}}" "${{inputs.events}}" "${{inputs.playerSlugs}}"
         
         
