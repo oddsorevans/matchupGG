@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 function cleanup {
-  note Removing work directory
-  rm -rf $work_dir
+  echo "Removing work directory"
+  rm -rf "$work_dir"
 }
 
 set -o errexit -o errtrace
@@ -23,6 +23,6 @@ cert_json="$work_dir/google_cert.json"
 printf "%s" "$googleAuth" > "$cert_json"
 
 #run python main
-python main.py "$startGGToken" "$cert_json" "$spreadsheetName" "$headToHeadWS" "$allWinsLossesWS" "$events" "$playerSlugs"
+python3 main.py "$startGGToken" "$cert_json" "$spreadsheetName" "$headToHeadWS" "$allWinsLossesWS" "$events" "$playerSlugs"
 
 cleanup
