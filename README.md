@@ -58,17 +58,18 @@ This query returns the following results
   "actionRecords": []
 }
 ```
-Take note of the id of the event that you want to use, in this case `995242` for singles. In `main.py` there is an empty list at the top called `events`. Include the number in the list, seperating eventIDs with commas. 
+Take note of the id of the event that you want to use, in this case `995242` for singles. In `main.py` there is an empty list at the top called `events`. Write down a list of the events id's that you want to use, like the following:
+```python
+[995242,969493]
+```
+It is important that there are no spaces between the commas and the next value
 
 ### Get player IDs
-Go to the users start.gg profile page. For example, for the player streams, the user page link is https://www.start.gg/user/b7c78cda. The last part `b7c78cda` is the players ID. Go to the file `extra/players.csv` and in the file you will add that info. In the file add the players tag, as well as slug, one per line. For example:
-```csv
-Tag,Slug
-Demothen,de8f2797
-streams,b7c78cda
-TeS|Puente,a3e41b97
+Go to the users start.gg profile page. For example, for the player streams, the user page link is https://www.start.gg/user/b7c78cda. The last part `b7c78cda` is the players ID. Keep a list of the players and corresponsing slugs that you would like to use, formatted like the following:
+```python
+[Demothen,de8f2797,streams,b7c78cda,TeS|Puente,a3e41b97]
 ```
-Ordinarily, you do not need to include the player sponsor tag in their name. Puente however has TeS as part of his tag instead of it being under the sponsor part in start.gg, therefore it needs to be added.
+It is important that there are no spaces between the commas and the next value. Ordinarily, you do not need to include the player sponsor tag in their name, Puente however has TeS as part of his tag instead of it being under the sponsor part in start.gg, therefore it needs to be added.
 
 ### Connect to Google Sheets
 - You must have a Service Account created through Google to connect service to the spreadsheet. To create one [Follow these instruction](https://docs.gspread.org/en/v5.7.0/oauth2.html#enable-api-access-for-a-project) up to downloading the JSON file. Take a note of where it is saved. Change the variable `pathToSpreadsheetJSON` in main to match the file path
@@ -77,7 +78,11 @@ Ordinarily, you do not need to include the player sponsor tag in their name. Pue
 - <img src = "misc/share_project.png" width = "500px">
 - Also note the difference between the `Spreadsheet Name` and the `Worksheet Name` 
 - <img src = "misc/names.png" width = "400px">
-- In main, change `spreadsheetName` to match the name of the spreadsheet, `head2head` to match the name of the worksheet you want the head 2 head chart to be put into, and `allWL` to match the name of the worksheet you want all wins and losses to be put into. 
 
 ## Running
-Once you have done all the above, you just need to run the `main.py`. The google sheets will take a bit to write because of Google's API limitations. 
+To make this program more accessible, I took the liberty of setting up a GitHub Action to run it. To run this action, go to the Actions Tab of this repository and find the action named [Create Matchup Spreadsheet](https://github.com/oddsorevans/matchupGG/actions/workflows/create_spreadsheet.yml). Once there choose `Run Workflow` and simply fill in the information. To correctly format the googleAuth information, you must do 2 things in order. 
+    1. Format the json to be a single line. You can do this by running it through a [single line online formatter]((https://github.com/oddsorevans/matchupGG/actions/workflows/create_spreadsheet.yml)).
+    2. Stringify the now one line json. This can also be done using a [stringify online formatter](https://jsonformatter.org/json-stringify-online).
+It may be a concern to you to upload sensitive information, such as your start.gg auth token, or googleauth information, but the workflow will hide your inputs in the console so no one can see them.
+
+You can of course also run this locally. To do so, you can either run the script `./github/scripts/run-spreadsheet` which has information included on how to run if you include the `-h` tag after the script name, or you can directly run `main.py` with some modifications to where it recieves the data that is normally passed through the script. The code is written for a unix file system.

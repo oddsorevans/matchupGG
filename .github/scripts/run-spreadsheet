@@ -1,4 +1,34 @@
 #!/usr/bin/env bash
+function usage {
+  [[ -n "$1" ]] && echo "$1"
+  cat <<EOD
+
+Usage: run-spreadsheet <startGGToken> <googleAuth> <spreadsheetName> <headToHeadWS> <allWinsLossesWS> <events> <playerSlugs>
+
+This script gathers data from start.gg for a given set of players and set of events they participated in.
+This data will be put into a google sheet specified by the user.
+
+<startGGToken> Auth token from start.gg. Instructions on how to obtain one linked in README
+<googleAuth> JSON authentication one lines and stringified. Instructions in README
+<spreadsheetName> Name of the spreadsheet that you are writing the data to
+<headToHeadWS> Name of the worksheet you are writing the head to head data to
+<allWinsLossesWS> Name of the worksheet you are writing the all wins and losses data to
+<events> List of all events you are getting data from
+<playerSlugs> List of all player tags and corresponding slugs you are getting data for
+
+EOD
+  exit 1
+}
+
+[[ "$1" = -h ]] && usage
+
+aws sts get-caller-identity > /dev/null
+[[ $? -ne 0 ]] && usage
+
+function note {
+    echo ▶ $@ '...'
+}
+
 function cleanup {
   echo "Removing work directory"
   rm -rf "$work_dir"
