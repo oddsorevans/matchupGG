@@ -57,6 +57,7 @@ def setUpSpread(shName:str, h2hName:str, key:str, players:list):
     sh = gc.open(shName)
     matchups = sh.worksheet(h2hName)
     matchups.update_cell(0,0,"O↓P→")
+    time.sleep(1)
 
     for key in name:
         matchups.update_cell(1, name[key] + 1, str(key))

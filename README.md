@@ -80,9 +80,9 @@ It is important that there are no spaces between the commas and the next value. 
 - <img src = "misc/names.png" width = "400px">
 
 ## Running
-To make this program more accessible, I took the liberty of setting up a GitHub Action to run it. To run this action, go to the Actions Tab of this repository and find the action named [Create Matchup Spreadsheet](https://github.com/oddsorevans/matchupGG/actions/workflows/create_spreadsheet.yml). Once there choose `Run Workflow` and simply fill in the information. To correctly format the googleAuth information, you must do 2 things in order. 
-    1. Format the json to be a single line. You can do this by running it through a [single line online formatter]((https://github.com/oddsorevans/matchupGG/actions/workflows/create_spreadsheet.yml)).
-    2. Stringify the now one line json. This can also be done using a [stringify online formatter](https://jsonformatter.org/json-stringify-online).
+To make this program more accessible, I took the liberty of setting up a GitHub Action to run it. To run this action, go to the Actions Tab of this repository and find the action named [Create Matchup Spreadsheet](https://github.com/oddsorevans/matchupGG/actions/workflows/create_spreadsheet.yml). Once there choose `Run Workflow` and simply fill in the information. To correctly format the googleAuth information, you must do 2 things in order: 
+1. Format the json to be a single line. You can do this by running it through a [single line online formatter]((https://github.com/oddsorevans/matchupGG/actions/workflows/create_spreadsheet.yml)).
+2. Stringify the now one line json. This can also be done using a [stringify online formatter](https://jsonformatter.org/json-stringify-online).
 It may be a concern to you to upload sensitive information, such as your start.gg auth token, or googleauth information, but the workflow will hide your inputs in the console so no one can see them.
 
 You can of course also run this locally. To do so, you can either run the script `./github/scripts/run-spreadsheet` which has information included on how to run if you include the `-h` tag after the script name, or you can directly run `main.py` with some modifications to where it recieves the data that is normally passed through the script. The code is written for a unix file system.
