@@ -22,8 +22,6 @@ EOD
 
 [[ "$1" = -h ]] && usage
 
-[[ $? -ne 0 ]] && usage
-
 function note {
     echo ▶ $@ '...'
 }
