@@ -22,7 +22,6 @@ EOD
 
 [[ "$1" = -h ]] && usage
 
-aws sts get-caller-identity > /dev/null
 [[ $? -ne 0 ]] && usage
 
 function note {
