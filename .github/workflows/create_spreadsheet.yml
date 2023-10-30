@@ -33,7 +33,7 @@ on:
             
 jobs:
     write-spreadsheet:
-        runs-on: ubuntu-latest
+        runs-on: ubuntu-20.04
         steps:
         -   name: Hide sensitive inputs
             uses: levibostian/action-hide-sensitive-inputs@1.0.0
