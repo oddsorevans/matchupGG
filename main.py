@@ -53,6 +53,15 @@ def addWLs(matches: list):
             p1 = "Perrie"
         if p2 == "Perry":
             p2 = "Perrie"
+        if p1 == "BendenBoi":
+            p1 = "Benden"
+        if p2 == "BendenBoi":
+            p2 = "Benden"
+        if p1 == "BendenBoi":
+            p1 = "Benden"
+        if p2 == "BendenBoi":
+            p2 = "Benden"
+
 
         #player 1 wins
         if s1 > s2 or (s1 == 'W' and s2 == 'L'):
