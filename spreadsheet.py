@@ -56,6 +56,7 @@ def setUpSpread(shName:str, h2hName:str, key:str, players:list):
     gc = gspread.service_account(key)
     sh = gc.open(shName)
     matchups = sh.worksheet(h2hName)
+    matchups.resize(rows=1000, cols=1000)
     matchups.update_cell(1,1,"O↓P→")
     time.sleep(1)
 
